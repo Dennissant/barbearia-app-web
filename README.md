@@ -19,17 +19,19 @@ Este projeto está sendo desenvolvido em colaboração, unindo aprendizado de fr
   <tr>
     <td align="center">
       <a href="https://github.com/Magnuz-Gs">
-        <img src="FOTO_DO_GITHUB_DELE" width="100px;" alt="Foto do Amigo"/><br>
+        <img src="[FOTO_DO_GITHUB_DELE](https://avatars.githubusercontent.com/u/150747898?v=4)" width="100px;" alt="Foto do Amigo"/><br>
         <sub><b>Nome do Amigo</b></sub>
       </a><br>
       <span title="Frontend">🎨 Frontend & UI</span>
     </td>
     <td align="center">
-      <a href="SEU_LINK_DO_GITHUB">
-        <img src="SUA_FOTO_DO_GITHUB" width="100px;" alt="Sua Foto"/><br>
+      <a href="https://github.com/Dennissant">
+        <img src="![131381230](https://github.com/user-attachments/assets/abbb7573-8f1d-45c6-815e-d881c87952c1)
+" width="100px;" alt="Sua Foto"/><br>
         <sub><b>Seu Nome</b></sub>
       </a><br>
       <span title="Backend e Lógica">🧠 Lógica & Firebase</span>
     </td>
   </tr>
 </table>
+
