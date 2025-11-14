@@ -9,43 +9,65 @@
 <body>
 
     <div class="container">
+        
         <header>
             <h1>💈 Barbearia do Mestre</h1>
-            <p>O estilo que você merece.</p>
+            <p>Estilo clássico, agendamento moderno.</p>
+            <button id="btn-tema" class="btn-outline">🌙 Trocar Tema</button>
         </header>
 
         <section class="card">
-            <h2>Agendar Horário</h2>
+            <h2>Novo Agendamento</h2>
             <form id="form-agendamento">
-                <div class="campo">
-                    <label>Nome do Cliente</label>
-                    <input type="text" id="cliente" placeholder="Ex: João Silva" required>
+                
+                <div class="input-group">
+                    <label>Cliente</label>
+                    <input type="text" id="cliente" placeholder="Seu nome completo" required>
                 </div>
 
-                <div class="campo">
-                    <label>Data e Hora</label>
-                    <input type="datetime-local" id="data" required>
+                <div class="input-group">
+                    <label>WhatsApp</label>
+                    <input type="tel" id="telefone" placeholder="(XX) 9XXXX-XXXX" required>
                 </div>
 
-                <div class="campo">
+                <div class="input-group">
                     <label>Serviço</label>
                     <select id="servico">
-                        <option value="Corte - R$30">Corte - R$30</option>
-                        <option value="Barba - R$25">Barba - R$25</option>
-                        <option value="Completo - R$50">Completo - R$50</option>
+                        <option value="Corte">Corte - R$ 30,00</option>
+                        <option value="Barba">Barba - R$ 25,00</option>
+                        <option value="Completo">Completo - R$ 50,00</option>
                     </select>
                 </div>
 
-                <button type="submit">Confirmar Agendamento</button>
+               <div class="input-row">
+    <div class="input-group">
+    <label>Data</label>
+    <select id="dataAgendamento" required>
+        </select>
+</div>
+
+    <div class="input-group">
+        <label>Horário</label>
+       <div class="input-group">
+    <label>Horário</label>
+    <select id="horaAgendamento" required>
+        <option value="" disabled selected>Escolha...</option>
+        </select>
+</div>
+    </div>
+</div>
+
+                <button type="submit" class="btn-gold">Confirmar Agendamento</button>
             </form>
         </section>
 
-        <section class="card lista-container">
+        <section class="card">
             <h2>📅 Agenda do Dia</h2>
             <ul id="lista-agendamentos">
-                <li class="vazio">Nenhum horário agendado ainda...</li>
+                <li class="vazio">Nenhum horário marcado ainda...</li>
             </ul>
         </section>
+
     </div>
 
     <script src="script.js"></script>
