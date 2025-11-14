@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbearia do Mestre</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>💈 Barbearia do Mestre</h1>
+            <p>O estilo que você merece.</p>
+        </header>
+
+        <section class="card">
+            <h2>Agendar Horário</h2>
+            <form id="form-agendamento">
+                <div class="campo">
+                    <label>Nome do Cliente</label>
+                    <input type="text" id="cliente" placeholder="Ex: João Silva" required>
+                </div>
+
+                <div class="campo">
+                    <label>Data e Hora</label>
+                    <input type="datetime-local" id="data" required>
+                </div>
+
+                <div class="campo">
+                    <label>Serviço</label>
+                    <select id="servico">
+                        <option value="Corte - R$30">Corte - R$30</option>
+                        <option value="Barba - R$25">Barba - R$25</option>
+                        <option value="Completo - R$50">Completo - R$50</option>
+                    </select>
+                </div>
+
+                <button type="submit">Confirmar Agendamento</button>
+            </form>
+        </section>
+
+        <section class="card lista-container">
+            <h2>📅 Agenda do Dia</h2>
+            <ul id="lista-agendamentos">
+                <li class="vazio">Nenhum horário agendado ainda...</li>
+            </ul>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+/* Reset básico para limpar margens padrão */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
+body {
+    background-color: #1a1a1a; /* Fundo escuro estilo barbearia */
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container { width: 100%; max-width: 400px; }
+
+header { text-align: center; margin-bottom: 20px; }
+header h1 { color: #f1c40f; /* Dourado */ }
+
+.card {
+    background: #2c2c2c;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    margin-bottom: 20px;
+}
+
+.campo { margin-bottom: 15px; }
+label { display: block; margin-bottom: 5px; color: #aaa; font-size: 0.9em; }
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background: #333;
+    color: white;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #f1c40f;
+    border: none;
+    color: #1a1a1a;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+button:hover { background: #d4ac0d; }
+
+/* Estilo da Lista de Agendamentos */
+ul { list-style: none; }
+li {
+    background: #3b3b3b;
+    padding: 10px;
+    border-bottom: 1px solid #444;
+    display: flex;
+    justify-content: space-between; /* Separa texto do botão */
+    align-items: center;
+    margin-bottom: 5px;
+    border-radius: 4px;
+}
+
+.btn-delete {
+    background: #e74c3c;
+    color: white;
+    padding: 5px 10px;
+    font-size: 12px;
+    width: auto;
+    margin-left: 10px;
+}
