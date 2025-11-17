@@ -1,10 +1,13 @@
-/* --- RESET E FONTE --- */
+/* --- 1. RESET E FONTES --- */
 * {
-    margin: 0; padding: 0; box-sizing: border-box;
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; /* Faz o padding não afetar o tamanho total */
     font-family: 'Poppins', sans-serif;
 }
 
-/* --- CORES E VARIÁVEIS (DARK MODE PADRÃO) --- */
+/* --- 2. VARIÁVEIS DE COR (TEMAS) --- */
+/* DARK MODE (Padrão) */
 :root {
     --bg-overlay: rgba(0, 0, 0, 0.85);
     --glass-bg: rgba(30, 30, 30, 0.6);
@@ -15,7 +18,28 @@
     --gold-glow: 0 0 15px rgba(212, 175, 55, 0.4);
 }
 
-/* --- CONFIGURAÇÃO DO CORPO --- */
+/* LIGHT MODE (Ativado via JS) */
+body.light-mode {
+    --texto-primario: #1a1a1a;
+    --texto-secundario: #555;
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: 1px solid rgba(0, 0, 0, 0.1);
+    --gold-gradient: linear-gradient(135deg, #b48811 0%, #8a680a 100%);
+}
+/* Película de fundo no modo claro */
+body.light-mode::before {
+    background: rgba(244, 244, 249, 0.95);
+}
+/* Inputs no modo claro */
+body.light-mode input, 
+body.light-mode select,
+body.light-mode .card-produto-qtd {
+    background: rgba(255,255,255,0.8) !important;
+    color: #333 !important;
+    border: 1px solid #ddd;
+}
+
+/* --- 3. LAYOUT PRINCIPAL (Body, Container) --- */
 body {
     background: url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop') no-repeat center center fixed;
     background-size: cover;
@@ -27,45 +51,24 @@ body {
     color: var(--texto-primario);
 }
 
-/* Camada escura do fundo */
+/* Película escura (::before é um pseudo-elemento) */
 body::before {
     content: '';
-    position: fixed; /* Fixed para cobrir tudo */
+    position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     background: var(--bg-overlay);
-    z-index: -1; /* Fica atrás do texto */
+    z-index: -1; /* Fica atrás de tudo */
 }
 
 .container {
     width: 100%;
     max-width: 420px;
     padding-bottom: 50px;
-    margin-top: 40px;
+    margin-top: 40px; /* Espaço para o botão de tema flutuante */
 }
 
-/* --- TEMA CLARO (LIGHT MODE) --- */
-body.light-mode {
-    --texto-primario: #1a1a1a;
-    --texto-secundario: #555;
-    --glass-bg: rgba(255, 255, 255, 0.85);
-    --glass-border: 1px solid rgba(0, 0, 0, 0.1);
-    --gold-gradient: linear-gradient(135deg, #b48811 0%, #8a680a 100%);
-}
-
-/* No modo claro, a película do fundo fica branca 
-body.light-mode::before {
-    background: rgba(244, 244, 249, 0.95);
-}*/
-
-body.light-mode input, 
-body.light-mode select,
-body.light-mode .conteudo-produto {
-    background: #fff !important;
-    color: #333 !important;
-    border: 1px solid #ccc;
-}
-
-/* --- BOTÃO DE TEMA (CORRIGIDO) --- */
+/* --- 4. COMPONENTES (Botões, Cards, Inputs) --- */
+/* Botão de Tema (flutuante) */
 #btn-tema {
     position: fixed;
     top: 20px;
@@ -81,42 +84,38 @@ body.light-mode .conteudo-produto {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* O MAIS IMPORTANTE: Fica na frente de tudo */
+    z-index: 9999; /* Fica na frente de TUDO */
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     transition: 0.3s;
 }
-
 #btn-tema:hover {
     transform: scale(1.1);
     background: #d4af37;
     color: #fff;
 }
 
-/* --- CABEÇALHO --- */
+/* Cabeçalho (Logo) */
 header { text-align: center; margin-bottom: 30px; }
-
 header h1 {
     font-size: 1.5rem;
     font-weight: 700;
     background: var(--gold-gradient);
-    -webkit-background-clip: text;
+    -webkit-background-clip: text; /* Mágica do texto degradê */
     -webkit-text-fill-color: transparent;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
-/* --- CARDS GERAIS --- */
+/* Cards (Efeito Vidro) */
 .card {
     background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px); /* O desfoque do vidro */
     border: var(--glass-border);
     padding: 20px;
     border-radius: 20px;
     margin-bottom: 20px;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
-
 .card h2 {
     font-size: 1.1rem;
     margin-bottom: 20px;
@@ -124,12 +123,17 @@ header h1 {
     padding-left: 10px;
 }
 
-/* --- INPUTS --- */
+/* Inputs e Selects (Formulário) */
 .input-group { margin-bottom: 15px; }
 .input-row { display: flex; gap: 10px; }
 .input-row .input-group { flex: 1; }
 
-label { font-size: 0.85rem; margin-bottom: 5px; display: block; color: var(--texto-secundario); }
+label { 
+    font-size: 0.85rem; 
+    margin-bottom: 5px; 
+    display: block; 
+    color: var(--texto-secundario); 
+}
 
 input, select {
     width: 100%;
@@ -137,42 +141,15 @@ input, select {
     background: rgba(0, 0, 0, 0.3);
     border: 1px solid #444;
     border-radius: 10px;
-    color: white;
+    color: var(--texto-primario);
     font-size: 1rem;
     outline: none;
 }
-
-/* --- PRODUTOS / LOJINHA --- */
-.grid-produtos {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-bottom: 20px;
+input:focus, select:focus {
+    border-color: #d4af37; /* Destaque dourado ao focar */
 }
 
-.card-produto { cursor: pointer; }
-.card-produto input { display: none; }
-
-.conteudo-produto {
-    background: rgba(0,0,0,0.3);
-    border: 1px solid #444;
-    border-radius: 10px;
-    padding: 10px 5px;
-    text-align: center;
-    transition: 0.3s;
-}
-
-.conteudo-produto .emoji { font-size: 1.5rem; display: block; }
-.conteudo-produto h4 { font-size: 0.7rem; color: var(--texto-secundario); margin: 5px 0; }
-.conteudo-produto p { font-size: 0.8rem; color: #d4af37; font-weight: bold; }
-
-.card-produto input:checked + .conteudo-produto {
-    border: 2px solid #d4af37;
-    background: rgba(212, 175, 55, 0.15);
-    transform: translateY(-3px);
-}
-
-/* --- BOTÃO CONFIRMAR --- */
+/* Botão Principal */
 .btn-gold {
     width: 100%;
     padding: 15px;
@@ -185,10 +162,93 @@ input, select {
     cursor: pointer;
     box-shadow: var(--gold-glow);
     transition: 0.2s;
+    margin-top: 10px;
 }
 .btn-gold:active { transform: scale(0.98); }
 
-/* --- LISTA --- */
+/* --- 5. LOJA (Sanfona e Produtos) --- */
+/* Botão da Categoria (ex: "Bebidas") */
+.categoria-header {
+    width: 100%;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid #444;
+    border-radius: 10px;
+    color: var(--texto-primario);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    margin-bottom: 5px;
+    transition: 0.3s;
+}
+.categoria-header:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Grid de Produtos (Escondido por padrão) */
+.categoria-grid {
+    display: none; 
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding: 15px 5px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #444;
+}
+.categoria-grid.active {
+    display: grid; /* JS ativa isso para mostrar */
+}
+
+/* Card Individual do Produto */
+.card-produto-qtd {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid #444;
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+    transition: 0.3s;
+}
+.card-produto-qtd h4 { font-size: 0.75rem; color: #ccc; margin-bottom: 2px; }
+.card-produto-qtd p { font-size: 0.8rem; color: #d4af37; font-weight: bold; }
+
+/* Destaque CORRIGIDO: Só acende se for > 0 */
+.card-produto-qtd input[type="number"]:valid[value]:not([value="0"]) {
+    border: 2px solid #d4af37;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+/* Input de Número do Card */
+.card-produto-qtd input {
+    width: 80%;
+    margin-top: 10px;
+    padding: 5px;
+    text-align: center;
+    background: var(--bg-fundo);
+    border: 1px solid #555;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* Container da Imagem/Emoji (para alinhamento) */
+.produto-visual {
+    height: 45px; /* Altura fixa */
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.produto-visual .produto-imagem {
+    max-height: 100%;
+    max-width: 100%;
+    border-radius: 8px;
+    object-fit: contain; /* A mágica da adaptação */
+}
+.produto-visual .emoji {
+    font-size: 2rem;
+    line-height: 45px;
+}
+
+/* --- 6. LISTA DE AGENDAMENTOS (Final) --- */
 ul { list-style: none; }
 li {
     background: rgba(255, 255, 255, 0.05);
@@ -199,17 +259,15 @@ li {
     justify-content: space-between;
     align-items: center;
 }
-/* --- CORREÇÃO PARA CELULAR (RESPONSIVIDADE) --- */
-@media (max-width: 480px) {
-    /* Quando a tela for menor que 480px (celulares)... */
-    
-    .input-row {
-        flex-direction: column; /* Muda de lado-a-lado para coluna */
-        gap: 0; /* Tira o gap lateral */
-    }
 
+/* --- 7. RESPONSIVIDADE (Celular) --- */
+@media (max-width: 480px) {
+    .input-row {
+        flex-direction: column; /* Empilha Data e Hora */
+        gap: 0;
+    }
     .input-row .input-group {
-        width: 100%; /* Ocupa a largura total */
-        margin-bottom: 15px; /* Adiciona espaço entre Data e Hora */
+        width: 100%;
+        margin-bottom: 15px;
     }
 }

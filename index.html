@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE BARBER´S SHOP</title>
+    <title>Barbearia do Mestre</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -14,7 +14,7 @@
     <div class="container">
         
         <header>
-            <h1>THE BARBER´S SHOP</h1>
+            <h1>💈THE BARBER´S SHOP💈</h1>
             <p>Estilo clássico, experiência moderna.</p>
         </header>
 
@@ -41,51 +41,20 @@
                     </select>
                 </div>
 
-                <div class="loja-container">
-                    <h3 style="margin-bottom: 10px; color: var(--texto-secundario); font-size: 0.9rem;">Deseja algo para beber ou usar?</h3>
-                    
-                    <div class="grid-produtos">
-                        <label class="card-produto">
-                            <input type="checkbox" id="prod-cerveja" value="10">
-                            <div class="conteudo-produto">
-                                <span class="emoji">🍺</span>
-                                <h4>Heineken</h4>
-                                <p>R$ 10,00</p>
-                            </div>
-                        </label>
-
-                        <label class="card-produto">
-                            <input type="checkbox" id="prod-pomada" value="35">
-                            <div class="conteudo-produto">
-                                <span class="emoji">💈</span>
-                                <h4>Pomada</h4>
-                                <p>R$ 35,00</p>
-                            </div>
-                        </label>
-
-                        <label class="card-produto">
-                            <input type="checkbox" id="prod-refri" value="6">
-                            <div class="conteudo-produto">
-                                <span class="emoji">🥤</span>
-                                <h4>Coca-Cola</h4>
-                                <p>R$ 6,00</p>
-                            </div>
-                        </label>
+                <div class="loja-container" id="loja-container-dinamica">
                     </div>
-                </div>
 
                 <div class="input-row">
                     <div class="input-group">
                         <label>Data</label>
                         <select id="dataAgendamento" required>
-                            </select>
+                        </select>
                     </div>
-
                     <div class="input-group">
                         <label>Horário</label>
                         <select id="horaAgendamento" required>
                             <option value="" disabled selected>Escolha...</option>
-                            </select>
+                        </select>
                     </div>
                 </div>
 
@@ -96,12 +65,12 @@
         <section class="card">
             <h2>📅 Agenda do Dia</h2>
             <ul id="lista-agendamentos">
-                <li class="vazio">Nenhum horário marcado ainda...</li>
+                <li class="vazio">Carregando agendamentos da nuvem...</li>
             </ul>
         </section>
 
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js" type="module"></script>
 </body>
 </html>
