@@ -4,6 +4,7 @@
     padding: 0; 
     box-sizing: border-box; /* Faz o padding não afetar o tamanho total */
     font-family: 'Poppins', sans-serif;
+
 }
 
 /* --- 2. VARIÁVEIS DE COR (TEMAS) --- */
@@ -13,7 +14,7 @@
     --glass-bg: rgba(30, 30, 30, 0.6);
     --glass-border: 1px solid rgba(255, 255, 255, 0.1);
     --texto-primario: #ffffff;
-    --texto-secundario: #aaaaaa;
+    --texto-secundario: #ffffff;
     --gold-gradient: linear-gradient(135deg, #d4af37 0%, #b48811 100%);
     --gold-glow: 0 0 15px rgba(212, 175, 55, 0.4);
 }
@@ -21,22 +22,18 @@
 /* LIGHT MODE (Ativado via JS) */
 body.light-mode {
     --texto-primario: #1a1a1a;
-    --texto-secundario: #555;
+    --texto-secundario: hsl(0, 0%, 2%);
     --glass-bg: rgba(255, 255, 255, 0.85);
     --glass-border: 1px solid rgba(0, 0, 0, 0.1);
     --gold-gradient: linear-gradient(135deg, #b48811 0%, #8a680a 100%);
-}
-/* Película de fundo no modo claro */
-body.light-mode::before {
-    background: rgba(244, 244, 249, 0.95);
 }
 /* Inputs no modo claro */
 body.light-mode input, 
 body.light-mode select,
 body.light-mode .card-produto-qtd {
-    background: rgba(255,255,255,0.8) !important;
-    color: #333 !important;
-    border: 1px solid #ddd;
+    background:#100c0c (255,255,255,0.8) !important;
+    color: #171616 lack; !important;
+    border: 1px solid #111111;
 }
 
 /* --- 3. LAYOUT PRINCIPAL (Body, Container) --- */
@@ -89,7 +86,7 @@ body::before {
     transition: 0.3s;
 }
 #btn-tema:hover {
-    transform: scale(1.1);
+    transform: scale(1.0);
     background: #d4af37;
     color: #fff;
 }
@@ -208,7 +205,7 @@ input:focus, select:focus {
     text-align: center;
     transition: 0.3s;
 }
-.card-produto-qtd h4 { font-size: 0.75rem; color: #ccc; margin-bottom: 2px; }
+.card-produto-qtd h4 { font-size: 0.75rem; color: #3d3737; margin-bottom: 2px; }
 .card-produto-qtd p { font-size: 0.8rem; color: #d4af37; font-weight: bold; }
 
 /* Destaque CORRIGIDO: Só acende se for > 0 */

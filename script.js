@@ -26,9 +26,9 @@ const db = getFirestore(app); // 'db' é nosso "portão" para o banco de dados
 const catalogoCategorizado = {
     "Bebidas 🍺": [
         { id: "prod-heineken", nome: "Heineken", preco: 10, emoji: "🍺", 
-          imagemUrl: "https://via.placeholder.com/150/D4AF37/000000?text=Heineken" },
+          imagemUrl: "https://png.pngtree.com/png-clipart/20231014/original/pngtree-heineken-liquid-green-white-picture-image_13160098.png" },
         { id: "prod-bud", nome: "Budweiser", preco: 9, emoji: "🍺", 
-          imagemUrl: "" },
+          imagemUrl: "https://media.istockphoto.com/id/458416053/pt/foto/gelo-frio-garrafa-de-cerveja-budweiser.jpg?s=612x612&w=0&k=20&c=dhfME3lvb3HWhobu2iT0A9jv_szPnaQhTil6JcvBXPU=" },
         { id: "prod-coca", nome: "Coca-Cola", preco: 6, emoji: "🥤", 
           imagemUrl: "" }
     ],
