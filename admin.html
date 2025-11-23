@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Barbearia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button id="btn-tema" aria-label="Trocar Tema"></button>
+    <div class="container">
+        <header>
+            <img src="assents/Gemini_Generated_Image_c61msyc61msyc61m.png" alt="Logo">
+            <p style="color: var(--cor-icone); font-weight: bold; margin-top:5px;">ÁREA RESTRITA</p>
+        </header>
+
+        <div class="total-dia">
+            💰 Faturamento Previsto: <br>
+            <span id="valor-total-dia" style="font-size: 1.8rem;">R$ 0,00</span>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+            <button id="btn-modo-dia" class="btn-filtro ativo" onclick="mudarModo('dia')">Diário</button>
+            <button id="btn-modo-mes" class="btn-filtro" onclick="mudarModo('mes')">Mensal</button>
+        </div>
+        <div class="input-group" style="margin-bottom: 10px;">
+            <label id="label-filtro">Escolha o Dia:</label>
+            <select id="filtro-data"></select>
+        </div>
+
+        <section class="card">
+            <h2>✂️ Próximos Clientes</h2>
+            <ul id="lista-agendamentos"><li class="vazio">Carregando...</li></ul>
+        </section>
+    </div>
+    <script src="admin.js" type="module"></script>
+</body>
+</html>

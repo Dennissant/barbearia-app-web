@@ -8,47 +8,46 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <button id="btn-tema">🌙</button>
+    <button id="btn-tema" aria-label="Trocar Tema"></button>
 
     <div class="container">
-        
         <header>
-            <h1>Barbearia Premium</h1>
-            <p>Estilo clássico, experiência moderna.</p>
+            <img src="assents/Gemini_Generated_Image_c61msyc61msyc61m.png" alt="Logo Barbearia">
         </header>
 
         <section class="card">
             <h2>Novo Agendamento</h2>
             <form id="form-agendamento">
-                
                 <div class="input-group">
                     <label>Cliente</label>
                     <input type="text" id="cliente" placeholder="Seu nome completo" required>
                 </div>
-
                 <div class="input-group">
                     <label>WhatsApp</label>
                     <input type="tel" id="telefone" placeholder="(XX) 9XXXX-XXXX" required>
                 </div>
-
                 <div class="input-group">
                     <label>Serviço</label>
                     <select id="servico">
-                        <option value="Corte">Corte - R$ 30,00</option>
-                        <option value="Barba">Barba - R$ 25,00</option>
-                        <option value="Completo">Completo - R$ 50,00</option>
+                        <option value="Degradê">Degradê (FADE) - R$ 35,00</option>
+                        <option value="Corte Social">Corte Social / Tesoura - R$ 30,00</option>
+                        <option value="Barba Terapia">Barba Terapia (Toalha) - R$ 25,00</option>
+                        <option value="Barba Simples">Barba Simples - R$ 15,00</option>
+                        <option value="Combo">Combo (Corte + Barba) - R$ 50,00</option>
+                        <option value="Sobrancelha">Sobrancelha - R$ 10,00</option>
+                        <option value="Pezinho">Pezinho - R$ 10,00</option>
+                        <option value="Selagem">Selagem - R$ 60,00</option>
+                        <option value="Platinado">Platinado - R$ 100,00</option>
+                        <option value="Corte Infantil">Corte Infantil - R$ 30,00</option>
                     </select>
                 </div>
 
-                <div class="loja-container" id="loja-container-dinamica">
-                    </div>
+                <div class="loja-container" id="loja-container-dinamica"></div>
 
                 <div class="input-row">
                     <div class="input-group">
                         <label>Data</label>
-                        <select id="dataAgendamento" required>
-                        </select>
+                        <select id="dataAgendamento" required></select>
                     </div>
                     <div class="input-group">
                         <label>Horário</label>
@@ -57,7 +56,6 @@
                         </select>
                     </div>
                 </div>
-
                 <button type="submit" class="btn-gold">Confirmar Agendamento</button>
             </form>
         </section>
@@ -65,12 +63,10 @@
         <section class="card">
             <h2>📅 Agenda do Dia</h2>
             <ul id="lista-agendamentos">
-                <li class="vazio">Carregando agendamentos da nuvem...</li>
+                <li class="vazio">Carregando agenda...</li>
             </ul>
         </section>
-
     </div>
-
     <script src="script.js" type="module"></script>
 </body>
 </html>
