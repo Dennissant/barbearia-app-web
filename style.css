@@ -151,3 +151,34 @@ li {
     .input-row { flex-direction: column; gap: 0; }
     .input-row .input-group { width: 100%; margin-bottom: 15px; }
 }
+/* --- BOTÃO DE SAIR (Versão Mini & Clean) --- */
+#btn-sair {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 35px;  /* Mais discreto (era 40px) */
+    height: 35px; 
+    border-radius: 50%;
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid #e74c3c;
+    color: #e74c3c;
+    cursor: pointer;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    z-index: 9999;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    padding: 0; /* Remove espaços extras */
+}
+
+#btn-sair svg {
+    width: 16px; /* Ícone pequeno e delicado */
+    height: 16px;
+}
+
+#btn-sair:hover {
+    background: #e74c3c;
+    color: white;
+    transform: scale(1.1);
+}

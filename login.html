@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button id="btn-tema" aria-label="Trocar Tema"></button>
+
+    <div class="container">
+        <header>
+            <img src="assents/Gemini_Generated_Image_c61msyc61msyc61m.png" alt="Logo">
+            <p style="margin-top: 10px; font-weight: bold;">Acesso Restrito</p>
+        </header>
+
+        <section class="card" style="text-align: center;">
+            <h2>🔒 Login do Barbeiro</h2>
+            <form id="form-login">
+                <div class="input-group">
+                    <label>E-mail</label>
+                    <input type="email" id="email-admin" placeholder="admin@barbearia.com" required>
+                </div>
+                <div class="input-group">
+                    <label>Senha</label>
+                    <input type="password" id="senha-admin" placeholder="Sua senha..." required>
+                </div>
+                <button type="submit" class="btn-gold">Entrar</button>
+            </form>
+            <p id="msg-erro" style="color: #ff4d4d; margin-top: 10px; display: none;"></p>
+        </section>
+    </div>
+
+    <script type="module">
+        // Importa o sistema de Autenticação
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+        // Sua config (A MESMA do script.js)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDUm06GOoISDPQYAFuzDV681Nhma24zrQs",
+            authDomain: "app-barbearia-premium.firebaseapp.com",
+            projectId: "app-barbearia-premium",
+            storageBucket: "app-barbearia-premium.firebasestorage.app",
+            messagingSenderId: "588599007164",
+            appId: "1:588599007164:web:44e90640c5859a15057db9"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app); // Inicia o sistema de Auth
+
+        const formLogin = document.getElementById('form-login');
+        const msgErro = document.getElementById('msg-erro');
+
+        formLogin.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email-admin').value;
+            const senha = document.getElementById('senha-admin').value;
+
+            try {
+                // PERGUNTA PRO GOOGLE SE A SENHA TÁ CERTA
+                await signInWithEmailAndPassword(auth, email, senha);
+                
+                // Se der certo, o código continua aqui:
+                sessionStorage.setItem('logado', 'sim');
+                window.location.href = "admin.html";
+
+            } catch (error) {
+                // Se der errado, cai aqui:
+                msgErro.style.display = 'block';
+                msgErro.textContent = "E-mail ou senha incorretos!";
+                console.error(error.code);
+            }
+        });
+    </script>
+</body>
+</html>

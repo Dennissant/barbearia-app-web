@@ -1,7 +1,12 @@
-// --- CONFIGURAÇÃO ---
+// --- 1. IMPORTAÇÕES (COM getDoc ADICIONADO) ---
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, query, orderBy, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { 
+    getFirestore, collection, addDoc, onSnapshot, 
+    deleteDoc, doc, query, orderBy, where, getDocs, 
+    getDoc // <--- NOVO: Necessário para buscar agendamento específico
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+// --- 2. CONFIGURAÇÃO ---
 const firebaseConfig = {
     apiKey: "AIzaSyDUm06GOoISDPQYAFuzDV681Nhma24zrQs",
     authDomain: "app-barbearia-premium.firebaseapp.com",
@@ -14,7 +19,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// --- CATÁLOGO ---
+// --- 3. CATÁLOGO DE PRODUTOS ---
 const catalogoCategorizado = {
     "Bebidas 🍺": [
         { id: "prod-heineken", nome: "Heineken", preco: 10, emoji: "🍺", imagemUrl: "https://png.pngtree.com/png-clipart/20231014/original/pngtree-heineken-liquid-green-white-picture-image_13160098.png" },
@@ -27,14 +32,14 @@ const catalogoCategorizado = {
     ]
 };
 
-// --- ELEMENTOS ---
+// --- 4. ELEMENTOS GLOBAIS ---
 const form = document.getElementById('form-agendamento');
 const listaAgendamentos = document.getElementById('lista-agendamentos');
 const btnTema = document.getElementById('btn-tema');
 const selectHorario = document.getElementById('horaAgendamento');
 const selectData = document.getElementById('dataAgendamento');
 
-// --- BOTÃO DE TEMA (SVG) ---
+// --- 5. LÓGICA DO BOTÃO DE TEMA (SVG) ---
 const iconeSol = `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
 const iconeLua = `<svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
 
@@ -46,7 +51,7 @@ if (btnTema) {
     });
 }
 
-// --- FUNÇÕES ---
+// --- 6. FUNÇÕES DE INTERFACE ---
 function renderizarCatalogo() {
     const container = document.getElementById("loja-container-dinamica");
     if (!container) return;
@@ -104,9 +109,12 @@ selectData.addEventListener('change', async () => {
     gerarHorarios(snapshot.docs.map(doc => doc.data().hora));
 });
 
+// --- 7. SALVAR (COM LÓGICA DE PRIVACIDADE) ---
 if (form) {
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
+        
+        // Captura Dados
         const inputs = document.querySelectorAll('#loja-container-dinamica input[type="number"]');
         const prods = []; let totalProds = 0;
         inputs.forEach(input => {
@@ -129,30 +137,81 @@ if (form) {
         };
 
         try {
-            await addDoc(collection(db, "agendamentos"), novoAgendamento);
-            form.reset(); inputs.forEach(i => i.value = 0);
-            alert("✅ Confirmado!");
-        } catch (e) { alert("Erro ao salvar."); }
+            // 1. Salva no Firebase
+            const docRef = await addDoc(collection(db, "agendamentos"), novoAgendamento);
+            
+            // 2. SALVA O ID NO NAVEGADOR (PRIVACIDADE)
+            salvarIdLocal(docRef.id);
+
+            form.reset(); 
+            inputs.forEach(i => i.value = 0);
+            alert("✅ Agendamento Confirmado!");
+            
+            // 3. Atualiza a lista pessoal
+            carregarMeusAgendamentos();
+
+        } catch (e) { 
+            console.error(e);
+            alert("Erro ao salvar."); 
+        }
     });
 }
 
-// Renderizar lista Cliente (Simples)
-const q = query(collection(db, "agendamentos"), orderBy("criadoEm", "desc"));
-onSnapshot(q, (snapshot) => {
+// --- 8. FUNÇÕES DE ARMAZENAMENTO LOCAL ---
+function salvarIdLocal(id) {
+    let meusIds = JSON.parse(localStorage.getItem('meus_agendamentos_ids')) || [];
+    meusIds.push(id);
+    localStorage.setItem('meus_agendamentos_ids', JSON.stringify(meusIds));
+}
+
+function pegarIdsLocais() {
+    return JSON.parse(localStorage.getItem('meus_agendamentos_ids')) || [];
+}
+
+// --- 9. LER AGENDAMENTOS (MODO PRIVADO) ---
+async function carregarMeusAgendamentos() {
+    const ids = pegarIdsLocais();
     listaAgendamentos.innerHTML = '';
-    if (snapshot.empty) { listaAgendamentos.innerHTML = '<li class="vazio">Sem agendamentos...</li>'; return; }
-    snapshot.forEach(doc => {
-        const d = doc.data(); const dataBR = d.data.split('-').reverse().join('/');
-        const prods = d.produtos ? d.produtos.map(p => `${p.nome}(${p.qtd})`).join(', ') : '-';
-        const li = document.createElement('li');
-        li.innerHTML = `<div><strong>${d.nome}</strong><br><small>${d.servico}</small><br><small style="color:#d4af37">🛒 ${prods}</small><br><span>📅 ${dataBR} - ⏰ ${d.hora}</span></div>`;
-        if (window.deletar) li.innerHTML += `<button onclick="deletar('${doc.id}')" style="color:red;border:1px solid red;background:rgba(255,0,0,0.2);border-radius:5px;">X</button>`;
-        listaAgendamentos.appendChild(li);
-    });
-});
 
-window.deletar = async (id) => { if(confirm("Cancelar?")) await deleteDoc(doc(db, "agendamentos", id)); };
+    if (ids.length === 0) {
+        listaAgendamentos.innerHTML = '<li class="vazio">Você ainda não tem agendamentos.</li>';
+        return;
+    }
 
-// INÍCIO
+    // Busca cada agendamento salvo no histórico do navegador
+    for (const id of ids) {
+        try {
+            const docRef = doc(db, "agendamentos", id);
+            const snapshot = await getDoc(docRef);
+
+            if (snapshot.exists()) {
+                const item = { ...snapshot.data(), id: snapshot.id };
+                adicionarItemNaTela(item);
+            }
+        } catch (e) {
+            console.log("Agendamento antigo não encontrado.");
+        }
+    }
+}
+
+// --- 10. RENDERIZAR ITEM NA LISTA ---
+function adicionarItemNaTela(d) {
+    const dataBR = d.data.split('-').reverse().join('/');
+    const prods = d.produtos && d.produtos.length ? d.produtos.map(p => `${p.nome}(${p.qtd})`).join(', ') : '-';
+    
+    const li = document.createElement('li');
+    li.innerHTML = `
+        <div>
+            <strong>${d.servico}</strong> <br>
+            <small style="color:#aaa">${dataBR} às ${d.hora}</small> <br>
+            <small style="color:#d4af37">🛒 ${prods}</small>
+        </div>
+        <div style="font-size:0.8rem; color:#888; padding:10px;">Agendado</div>
+    `;
+    listaAgendamentos.appendChild(li);
+}
+
+// --- INICIALIZAÇÃO ---
 renderizarCatalogo();
 gerarDias();
+carregarMeusAgendamentos(); // Carrega apenas os do usuário
